@@ -1,20 +1,41 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+
+function lazyLoading(view: string) {
+  return () => import(`@/views/${view}.vue`);
+}
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: "/",
-    name: "home",
-    component: HomeView,
+    path: '/',
+    name: 'Dashboard',
+    component: lazyLoading('DashboardView'),
+    meta: {
+      layout: 'default',
+    }
   },
   {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+    path: '/transaction',
+    name: 'Transações',
+    component: lazyLoading('TransactionView'),
+    meta: {
+      layout: 'default',
+    }
+  },
+  {
+    path: '/category',
+    name: 'Categorias',
+    component: lazyLoading('CategoryView'),
+    meta: {
+      layout: 'default',
+    }
+  },
+  {
+    path: '/settings',
+    name: 'Configurações',
+    component: lazyLoading('ConfigView'),
+    meta: {
+      layout: 'default',
+    }
   },
 ];
 
